@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2857B73E-F847-4B02-9238-064979017E93}") = "diskQuota", "diskQuota\diskQuota.cproj", "{9CB5F0AB-C661-4745-880C-8B6D8859576E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9CB5F0AB-C661-4745-880C-8B6D8859576E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CB5F0AB-C661-4745-880C-8B6D8859576E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CB5F0AB-C661-4745-880C-8B6D8859576E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CB5F0AB-C661-4745-880C-8B6D8859576E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = diskQuota\diskQuota.cproj
+	EndGlobalSection
+EndGlobal
