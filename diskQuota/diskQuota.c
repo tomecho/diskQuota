@@ -33,18 +33,18 @@ int readConf(Config *config) {
   FILE *f = fopen("config","r");  //config file
   if(f == NULL) {
     printf("Failed to open config file!\n");
-    config.scan_interval = 120;
-    config.old = 86400;
-    config.directory = "/dev/null"; 
+    config->scan_interval = 120;
+    config->old = 86400;
+    strcpy(config->directory ,"/dev/null"); 
     return 0;
   } else { //read config
     char line[1024];
     while( fgets(line, 1024, f) != NULL){
-      char *part
+      char *part;
       if(strstr(line, "scan_interval") != NULL){
         part = strstr(line, "=");
         part++;
-        printf("%s", part)
+        printf("%s", part);
       }
       if((part = strstr(line, "old")) != NULL){
         
@@ -54,18 +54,18 @@ int readConf(Config *config) {
       }
     }
   }
-  fclose(conf);
+  fclose(f);
   return(1);
 }
 
-int statFile(char *directory) {
+int statFile(char *directory, Config *config) {
   struct stat st;
   struct timespec t = {0, 0};
   if(stat(directory,&st) == 0)
   {
     t.tv_sec = st.st_mtime;
   } else return 666; //failure status
-  if(difftime(t.tv_sec,(time(NULL)-config.old)) < 0)
+  if(difftime(t.tv_sec,(time(NULL)-config->old)) < 0)
   {
     return unlink(directory);
   } else {
@@ -73,7 +73,7 @@ int statFile(char *directory) {
   }
 }
 
-void findFiles(char *directory)
+void findFiles(char *directory, Config *config)
 {
   DIR *d;
   struct dirent *dir;
@@ -94,14 +94,14 @@ void findFiles(char *directory)
         strcat(deeperDirectory, "/");
         strcat(deeperDirectory, name);
         //printf("search, %s\n",deeperDirectory);
-        findFiles(deeperDirectory);
+        findFiles(deeperDirectory, config);
         free(deeperDirectory);
       } else if(type == DT_REG) {  //is file
         char *toStat=(char*)malloc(sizeof(char)*256);
         strcpy(toStat, directory);
         strcat(toStat,"/");
         strcat(toStat,name);
-        statFile(toStat);
+        statFile(toStat, config);
         //printf("stat, %s\n", toStat);
         free(toStat);
       } else {
@@ -116,7 +116,7 @@ void findFiles(char *directory)
 
 int main()
 {  //find old files and delete them, first go into directories and read find all video files
-  Config config;
+  Config *config;
   if(!readConf(config)) return 0;
   //while(1) {
   //  findFiles(config.directory);
