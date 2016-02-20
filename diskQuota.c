@@ -68,9 +68,9 @@ int main()
 {  //find old files and delete them, first go into directories and read find all video files
   Config *config;
   if(!readConf(config)) return 0;
-  //while(1) {
-  //  findFiles(config.directory);
-  //  sleep(config.scan_interval);
-  //}
+  while(1) {
+    findFiles(config->directory,config);
+    sleep(config->scan_interval);
+  }
   return(0x0);
 }

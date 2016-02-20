@@ -5,22 +5,22 @@ typedef struct config {
 } Config;
 
 int readConf(Config *config) {
-  /*
   if(!access("/etc/diskQuota.conf", F_OK)){ //conf doesnt exist try to create it
     FILE *f = fopen("/etc/diskQuota.conf","w+");  //config file
     printf("Failed to open config file!\n");
     printf("Using default settings.\n");
 
-    config.scan_interval = 120;
-    fputs(f, "scan_interval=120");
+    config->scan_interval = 120;
+    fputs("scan_interval=120", f);
 
-    config.old = 86400;
-    fputs(f, "old=120");
+    config->old = 86400;
+    fputs("old=120",f);
 
-    config.directory = "/dev/null"; 
-    fputs(f, "directory=/dev/null");
+    strcpy(config->directory,"/dev/null"); 
+    fputs("directory=/dev/null", f);
+    fclose(f);
     return 0;
-  }*/
+  }
   FILE *f = fopen("config","r");  //config file
   if(f == NULL) {
     printf("Failed to open config file!\n");
