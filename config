@@ -1,1 +1,3 @@
-scan_interval=5
+directory=/dev/null
+scan_interval=500
+old=4300
