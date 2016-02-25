@@ -1,5 +1,4 @@
 #define CONFIG_FILE "config"
-#include "db_config.c"
 
 typedef struct config {
   long scan_interval; 
@@ -10,7 +9,7 @@ typedef struct config {
 typedef enum confType {db,file} confType;
 
 confType checkConfType(){
-  FILE *f = fopen("config","r");  //config file
+  FILE *f = fopen(CONFIG_FILE,"r");  //config file
   char line[1024];
   while( fgets(line, 1024, f) != NULL){
     char *part;
@@ -39,10 +38,11 @@ int readConf(Config *config) {
     fclose(f);
     return 0;
   } else {
-    confType ct = checkConfType("");
+    confType ct = checkConfType();
     if(ct == db){
       dbConfig(config,"development.sqlite3");
-      if(!validConf(config)){
+      int vc = validConf(config);
+      if(vc == 0){
         printf("failed to read database, falling back to file");
       }
     }

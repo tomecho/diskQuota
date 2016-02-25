@@ -7,6 +7,8 @@
 #include <time.h>
 #include <unistd.h>
 #include "config.c"
+#include "db_config.c"
+#include <sqlite3.h>
 
 int statFile(char *directory, Config *config) {
   struct stat st;
