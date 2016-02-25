@@ -43,7 +43,6 @@ void findFiles(char *directory, Config *config)
         strcpy(deeperDirectory,directory);
         strcat(deeperDirectory, "/");
         strcat(deeperDirectory, name);
-        //printf("search, %s\n",deeperDirectory);
         findFiles(deeperDirectory, config);
         free(deeperDirectory);
       } else if(type == DT_REG) {  //is file
@@ -52,7 +51,6 @@ void findFiles(char *directory, Config *config)
         strcat(toStat,"/");
         strcat(toStat,name);
         statFile(toStat, config);
-        //printf("stat, %s\n", toStat);
         free(toStat);
       } else {
         printf("dirent type error");
