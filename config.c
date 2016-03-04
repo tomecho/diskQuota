@@ -1,6 +1,3 @@
-#define CONFIG_FILE "config"
-
-
 typedef struct config {
   long scan_interval; 
   long old;

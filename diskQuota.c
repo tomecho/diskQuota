@@ -7,6 +7,7 @@
 #include <time.h>
 #include <unistd.h>
 #include "config.c"
+#include "config.h"
 #include "db_config.c"
 #include "sqlite3.h"
 

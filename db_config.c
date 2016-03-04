@@ -1,5 +1,3 @@
-int dbConfig(Config *config, char *file);
-
 int dbConfig(Config *config, char *file) {
   sqlite3 *db;
   char *zErrMsg = 0;
