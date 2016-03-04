@@ -1,9 +1,8 @@
 #define CONFIG_FILE "config"
 
+typedef struct config Config;
 
-typedef struct config;
-
-typedef enum confType {db,file} confType;
+typedef enum confType confType;
 
 int validConf(Config *conf);
 

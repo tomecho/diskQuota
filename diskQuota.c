@@ -6,10 +6,11 @@
 #include <dirent.h>
 #include <time.h>
 #include <unistd.h>
-#include "config.c"
-#include "config.h"
-#include "db_config.c"
+#include "diskQuota.h"
 #include "sqlite3.h"
+#include "config.h"
+#include "config.c"
+#include "db_config.c"
 
 int statFile(char *directory, Config *config) {
   struct stat st;
