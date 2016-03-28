@@ -1,15 +1,7 @@
-typedef struct config {
-  long scan_interval; 
-  long old;
-  char directory[255];
-} Config;
-
-typedef enum confType {db,file} confType;
-
 int validConf(Config *conf){
-  if(conf->scan_interval ==NULL) return 0;
-  if(conf->old ==NULL) return 0;
-  if(conf->directory == NULL) return 0;
+  if(!conf->scan_interval) return 0;
+  if(!conf->old) return 0;
+  if(!conf->directory) return 0;
   return 1;
 }
 

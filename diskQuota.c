@@ -6,9 +6,10 @@
 #include <dirent.h>
 #include <time.h>
 #include <unistd.h>
-#include "diskQuota.h"
-#include "sqlite3.h"
+#include <sqlite3.h>
 #include "config.h"
+#include "diskQuota.h"
+#include "db_config.h"
 #include "config.c"
 #include "db_config.c"
 
@@ -19,7 +20,7 @@ int statFile(char *directory, Config *config) {
   {
     t.tv_sec = st.st_mtime;
   } else return 666; //failure status
-  if(difftime(t.tv_sec,(time(NULL)-config->old)) < 0)
+  if(difftime(t.tv_sec,(time(NULL)-(config->old))) < 0)
   {
     return unlink(directory);
   } else {
@@ -71,7 +72,7 @@ int main()
   Config *config;
   if(!readConf(config)) return 0;
   while(1) {
-    findFiles(config->directory,config);
+    //findFiles(config->directory,config);
     sleep(config->scan_interval);
   }
   return(0x0);
