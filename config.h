@@ -1,3 +1,5 @@
+#ifndef __CONFIG
+#define __CONFIG
 #define CONFIG_FILE "config"
 
 //typedef struct config Config;
@@ -15,3 +17,4 @@ int validConf(Config *conf);
 confType checkConfType();
 
 int readConf(Config *config);
+#endif
