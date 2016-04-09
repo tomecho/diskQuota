@@ -51,19 +51,15 @@ int readConf(Config *config) {
       char line[1024];
       while( fgets(line, 1024, f) != NULL){
         char *part;
-        if(strstr(line, "db") != NULL){
-          part = strstr(line, "=");
-          part++;
-        }
         if(strstr(line, "scan_interval") != NULL){
           part = strstr(line, "=");
           part++;
-          config->scan_interval= (long) part;
+          config->scan_interval= atol(part);
         }
         if((part = strstr(line, "old")) != NULL){
           part = strstr(line, "=");
           part++;
-          config->old= (long) part;
+          config->old= atol(part);
         }
         if((part = strstr(line, "directory")) != NULL){
           part = strstr(line, "=");
