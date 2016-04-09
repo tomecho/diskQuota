@@ -8,6 +8,9 @@ int dbConfig(Config *config, char *file) {
   }else{
     fprintf(stderr, "Opened database successfully\n");
   }
+  char *directory_stmt = "SELECT `directory` FROM `web_configs` WHERE `id`=1";
+  char *old_stmt = "SELECT `old` FROM `web_configs` WHERE `id`=1";
+  char *scan_interval_stmt = "SELECT `scan_interval` FROM `web_configs` WHERE `id`=1";
   sqlite3_close(db);
   return 1;
 }
