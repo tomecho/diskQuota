@@ -1,10 +1,3 @@
-int validConf(Config *conf){
-  if(!conf->scan_interval) return 0;
-  if(!conf->old) return 0;
-  if(!conf->directory) return 0;
-  return 1;
-}
-
 confType checkConfType(){
   FILE *f = fopen(CONFIG_FILE,"r");  //config file
   char line[1024];
@@ -38,11 +31,7 @@ int readConf(Config *config) {
     confType ct = checkConfType();
     if(ct == db){
       dbConfig(config,"development.sqlite3");
-      if(validConf(config) == 0){
-        printf("failed to read database, falling back to file");
-      }
-    }
-    if(ct == file){
+    } else if(ct == file){
       FILE *f = fopen("config","r");  //config file
       if(f == NULL) {
         printf("Failed to open config file!\n");
