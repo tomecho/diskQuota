@@ -6,9 +6,10 @@
 #include <dirent.h>
 #include <time.h>
 #include <unistd.h>
-#include <sqlite3.h>
-//#include "lib/sqlite3.h"
-//#include "lib/sqlite3.c"
+
+#include "lib/sqlite3.c"
+#include "lib/sqlite3.h"
+
 #include "config.h"
 #include "diskQuota.h"
 #include "db_config.h"
