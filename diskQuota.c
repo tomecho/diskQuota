@@ -6,7 +6,15 @@
 #include <dirent.h>
 #include <time.h>
 #include <unistd.h>
+
+#include "lib/sqlite3.c"
+#include "lib/sqlite3.h"
+
+#include "config.h"
+#include "diskQuota.h"
+#include "db_config.h"
 #include "config.c"
+#include "db_config.c"
 
 int statFile(char *directory, Config *config) {
   struct stat st;
@@ -15,7 +23,7 @@ int statFile(char *directory, Config *config) {
   {
     t.tv_sec = st.st_mtime;
   } else return 666; //failure status
-  if(difftime(t.tv_sec,(time(NULL)-config->old)) < 0)
+  if(difftime(t.tv_sec,(time(NULL)-(config->old))) < 0)
   {
     return unlink(directory);
   } else {
@@ -43,7 +51,6 @@ void findFiles(char *directory, Config *config)
         strcpy(deeperDirectory,directory);
         strcat(deeperDirectory, "/");
         strcat(deeperDirectory, name);
-        //printf("search, %s\n",deeperDirectory);
         findFiles(deeperDirectory, config);
         free(deeperDirectory);
       } else if(type == DT_REG) {  //is file
@@ -52,7 +59,6 @@ void findFiles(char *directory, Config *config)
         strcat(toStat,"/");
         strcat(toStat,name);
         statFile(toStat, config);
-        //printf("stat, %s\n", toStat);
         free(toStat);
       } else {
         printf("dirent type error");
@@ -67,10 +73,11 @@ void findFiles(char *directory, Config *config)
 int main()
 {  //find old files and delete them, first go into directories and read find all video files
   Config *config;
-  if(!readConf(config)) return 0;
-  while(1) {
-    findFiles(config->directory,config);
+  dbConfig(config, "development.sqlite3");
+  //if(!readConf(config)) return 0;
+  /*while(1) {
+    //findFiles(config->directory,config);
     sleep(config->scan_interval);
-  }
+  }*/
   return(0x0);
 }
