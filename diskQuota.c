@@ -71,13 +71,19 @@ void findFiles(char *directory, Config *config)
 }
 
 int main()
-{  //find old files and delete them, first go into directories and read find all video files
+{ 
   Config *config = malloc(sizeof(Config));
-  dbConfig(config, "development.sqlite3");
-  //if(!readConf(config)) return 0;
-  /*while(1) {
-    //findFiles(config->directory,config);
+
+  if (access("development.sqlite3", F_OK) != -1) {
+    dbConfig(config, "development.sqlite3");
+  } else {
+    readConf(config);
+  }
+
+  while(1) {
+    findFiles(config->directory,config);
     sleep(config->scan_interval);
-  }*/
-  return(0x0);
+  }
+
+  return 0;
 }

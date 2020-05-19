@@ -1,9 +1,8 @@
 static int callback(void *data, int argc, char **argv, char **azColName){
-  Config *config = (Config *) &data;
-  sprintf(config->directory, "%s", argv[0]);
-  config->old = argv[1];
-  config->scan_interval = argv[2];
-  printf("%s", config->directory);
+  Config *config = (Config *) data;
+  strcpy(config->directory, argv[0]);
+  config->old = atol(argv[1]);
+  config->scan_interval = atol(argv[2]);
   return 0;
 }
 
@@ -22,7 +21,6 @@ int dbConfig(Config *config, char *file) {
     fprintf(stderr, "failed to read database directory: %s \n", zErrMsg);
     sqlite3_free(zErrMsg);
   }
-  printf("%s", config->directory);
 
   sqlite3_close(db);
   return 1;
